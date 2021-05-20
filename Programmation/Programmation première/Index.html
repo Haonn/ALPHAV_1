@@ -50,8 +50,10 @@ var heart1;
 var heart2;
 var heart3;
 var projectileFeu;
+var projectileFeu2;
 var projectileFeuActif = false;
 var projectileFoudre;
+var projectileFoudre2;
 var projectileFoudreActif = false; 
 var ennemis;
 var ennemi1;
@@ -76,6 +78,7 @@ function preload ()//----------------------------------------
     this.load.image('neige','assets/neige.png');
     this.load.image('glace','assets/glace.png');
     this.load.image('roche','assets/roche.png');
+    this.load.image("thunderProjectile", "assets/thunderProjectile.png");
     //Ennemi ----------
     this.load.spritesheet('ennemis','assets/ennemi.png', { frameWidth: 54, frameHeight:  122});
     //piege
@@ -116,6 +119,7 @@ function create ()//----------------------------------------
     platforms.create(1450,1060, 'ground');
     platforms.create(1650,1060, 'ground');
     platforms.create(1750,1060, 'ground');
+
 
     //ENNEMIS
     ennemis = this.physics.add.group();
@@ -231,6 +235,65 @@ function create ()//----------------------------------------
             heart1.setAlpha(1,1,1,1);
         }
     }
+     //projectile de foudre 
+     this.projectileFoudre2 = this.physics.add.group({
+            defaultKey: 'thunderProjectile',
+            maxSize: 1000,
+            allowGravity: false,
+        });
+        
+    //projectile de feu 
+    this.projectileFeu2 = this.physics.add.group({
+            defaultKey: 'attaque',
+            maxSize: 1000,
+            allowGravity: false,
+        });
+        this.input.on('pointerdown', shoot, this);
+}
+function shoot(pointer) {
+    if (pouvoirchoisi == 1)
+    {
+        console.log(pointer.x, pointer.y);
+      var projectileFoudre2 = this.projectileFoudre2.get(player.x, player.y);
+      if (projectileFoudre2) {
+        projectileFoudre2.setActive(true);
+        projectileFoudre2.setVisible(true);
+
+          //Calcul de coordonnées du vecteur entre les deux projectiles
+          dY = ( pointer.y - player.y);
+          dX = ( pointer.x - player.x);
+
+          //Distance à ajouter pour atteindre la constante vitesse.
+          dSpeed = (800/(Math.abs(dY)+Math.abs(dX))); 
+
+          projectileFoudre2.body.velocity.y = dY*dSpeed;
+          projectileFoudre2.body.velocity.x = dX*dSpeed;
+  
+      }
+    }
+    else if (pouvoirchoisi == 2)
+    {
+      var projectileFeu2 = this.projectileFeu2.get(player.x, player.y);
+      if (projectileFeu2) {
+        projectileFeu2.setActive(true);
+        projectileFeu2.setVisible(true);
+
+
+          //Calcul de coordonnées du vecteur entre les deux projectiles
+          dY = ( pointer.y - player.y);
+          dX = ( pointer.x - player.x);
+
+          //Distance à ajouter pour atteindre la constante vitesse.
+          dSpeed = (800/(Math.abs(dY)+Math.abs(dX))); 
+
+          projectileFeu2.body.velocity.y = dY*dSpeed;
+          projectileFeu2.body.velocity.x = dX*dSpeed;
+  
+      }
+    }
+    //this.physics.add.collider(this.projectileFoudre2, A,Fx);
+    //this.physics.add.collider(this.projectileFeu2, A,Fx);
+   
 }
 function update () //------------------------------------------
 {
@@ -472,6 +535,13 @@ function update () //------------------------------------------
                 gameOver = true;
             }
         }
+        this.bullets.children.each(function(b) {
+    if (b.active) {
+        if (b.y < 0) {
+            b.setActive(false);
+        }
+    }
+}.bind(this));
     }
 }   
 </script>
