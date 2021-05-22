@@ -35,7 +35,8 @@ var config = {// Configuration -----------------------------------------
     }
 };
 //VARIABLES
-
+var sparkle;
+var sparkleGenerator;
 var compteurChangmentPouvoir = 61;
 var pouvoirchoisi = 1;
 var player;
@@ -254,21 +255,30 @@ function shoot(pointer) {
     if (pouvoirchoisi == 1)
     {
         console.log(pointer.x, pointer.y);
+
+        var sparkle = this.add.particles('thunder');
+        var sparkleGenerator = sparkle.createEmitter({
+            speed: 100,
+            scale : {start: 0.2, end: 0},
+            blendMode:'COLOR_BRUN'
+        });
+
+
       var projectileFoudre2 = this.projectileFoudre2.get(player.x, player.y);
       if (projectileFoudre2) {
         projectileFoudre2.setActive(true);
         projectileFoudre2.setVisible(true);
 
           //Calcul de coordonnées du vecteur entre les deux projectiles
-          dY = ( pointer.y - player.y);
-          dX = ( pointer.x - player.x);
+          dY = ( pointer.y - player.body.position.y);
+          dX = ( pointer.x - player.body.position.x);
 
           //Distance à ajouter pour atteindre la constante vitesse.
           dSpeed = (800/(Math.abs(dY)+Math.abs(dX))); 
 
           projectileFoudre2.body.velocity.y = dY*dSpeed;
           projectileFoudre2.body.velocity.x = dX*dSpeed;
-  
+        sparkleGenerator.startFollow(projectileFoudre2);
       }
     }
     else if (pouvoirchoisi == 2)
