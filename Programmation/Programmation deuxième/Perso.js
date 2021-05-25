@@ -12,6 +12,7 @@ class Perso extends Phaser.GameObjects.Sprite{
     }
 
     //GESTION DES POUVOIRS:
+    // 0=foudre; 1=feu; 2 = vent;
 
     choixPouvoir(){
         if(this.pouvoirChoisi == 0){
@@ -27,16 +28,13 @@ class Perso extends Phaser.GameObjects.Sprite{
 
     pouvoirVent(direction){
         if(direction==gauche){
-            this.regarde='aGauche';
-            if(this.body.touchingDown == true){
 
-            }
         }
         else if(direction==haut){
 
         }
         else if(direction==droite){
-            this.regarde='aDroite';
+            
         }
         else if(direction==bas){
             
@@ -54,12 +52,29 @@ class Perso extends Phaser.GameObjects.Sprite{
     //GESTION DES DEPLACEMENTS
 
     droite(){
-
+        this.regarde='aDroite';
+        if(this.body.touchingDown == true){
+            if(this.choixPouvoir == 0){
+                this.setVelocityX(240)
+            }
+            else{
+                this.setVelocityX(160)
+            }
+        }
     }
 
     gauche(){
-
+        this.regarde='aGauche';
+        if(this.body.touchingDown == true){
+            if(this.choixPouvoir == 0){
+                this.setVelocityX(-240)
+            }
+            else{
+                this.setVelocityX(-160)
+            }
+        }
     }
+
 
     saut(){
 

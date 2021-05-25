@@ -40,11 +40,12 @@ class Scene1 extends Phaser.Scene {
 
          //(A mettre dans les colliders)
          this.physics.add.collider(player,this.collisionLayer);
+         cursors = this.input.keyboard.createCursorKeys();
     }
     
     update() 
     {
-      
+
     }
   }
   
