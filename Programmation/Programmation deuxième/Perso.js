@@ -7,7 +7,7 @@ class Perso extends Phaser.GameObjects.Sprite{
 
         this.timerPouvoir = 60;
         this.pouvoirChoisi = 0;
-        this.vie = 3;
+        this.vies = 3;
         this.regarde='aDroite';
         this.direction == 'aucune';
         
@@ -19,7 +19,7 @@ class Perso extends Phaser.GameObjects.Sprite{
           z: Z,
           q: Q,
           s: S,
-          d: D
+          d: D,
         });
     }
 
@@ -48,17 +48,21 @@ class Perso extends Phaser.GameObjects.Sprite{
     }
 
     pouvoirVent(direction){
-        if(direction==gauche){
-            this.setGravityX(-5000);
+        if(direction=='gauche'){
+            this.resetVent();
+            this.body.setGravityX(-500);
         }
-        else if(direction==haut){
-            player.setGravityY(-100);
+        else if(direction=='haut'){
+            this.resetVent();
+            this.body.setGravityY(-100);
         }
-        else if(direction==droite){
-            this.setGravityX(5000);
+        else if(direction=='droite'){
+            this.resetVent();
+            this.body.setGravityX(500);
         }
-        else if(direction==bas){
-            player.setGravityX(5000);
+        else if(direction=='bas'){
+            this.resetVent();
+            this.body.setGravityX(500);
         }
     }
 
@@ -68,6 +72,11 @@ class Perso extends Phaser.GameObjects.Sprite{
 
     pouvoirFeu(){
 
+    }
+
+    resetVent(){
+        this.body.setGravityX(0);
+        this.body.setGravityY(0);
     }
 
     //FONCTIONS DE DEPLACEMENT
