@@ -5,39 +5,58 @@ class Perso extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
 
+        this.timerPouvoir = 15;
         this.pouvoirChoisi = 0;
         this.vie = 3;
         this.regarde='aDroite';
-
+        this.direction == 'aucune';
+        
+        
+        const { SPACE, Z, Q, D, S } = Phaser.Input.Keyboard.KeyCodes;
+        this.keys = scene.input.keyboard.addKeys({
+          
+          space: SPACE,
+          z: Z,
+          q: Q,
+          s: S,
+          d: D
+        });
     }
 
     //GESTION DES POUVOIRS:
     // 0=foudre; 1=feu; 2 = vent;
 
     choixPouvoir(){
-        if(this.pouvoirChoisi == 0){
+
+        if(this.pouvoirChoisi == 2 && this.timerPouvoir > 15){
+            this.pouvoirChoisi = 0
+            console.log('passage du pouvoir de vent à celui de foudre')
+        }
+
+        if(this.pouvoirChoisi == 0 && this.timerPouvoir > 15){
             this.pouvoirChoisi = 1;
+            console.log('passage du pouvoir de foudre à celui de feu')
         }
-        if(this.choixPouvoir == 1){
-            this.choixPouvoir = 2
+        else if(this.pouvoirChoisi == 1 && this.timerPouvoir > 15){
+            this.pouvoirChoisi = 2
+            console.log('passage du pouvoir de feu à celui de vent')
         }
-        if(this.choixPouvoir == 2){
-            this.choixPouvoir = 0
-        }
+        
+        console.log(this.pouvoirChoisi);
     }
 
     pouvoirVent(direction){
         if(direction==gauche){
-
+            this.setGravityX(-5000);
         }
         else if(direction==haut){
-
+            player.setGravityY(-100);
         }
         else if(direction==droite){
-            
+            this.setGravityX(5000);
         }
         else if(direction==bas){
-            
+            player.setGravityX(5000);
         }
     }
 
@@ -49,34 +68,66 @@ class Perso extends Phaser.GameObjects.Sprite{
 
     }
 
-    //GESTION DES DEPLACEMENTS
+    //FONCTIONS DE DEPLACEMENT
 
     droite(){
         this.regarde='aDroite';
         if(this.body.touchingDown == true){
-            if(this.choixPouvoir == 0){
-                this.setVelocityX(240)
+            if(this.pouvoirChoisi == 0){
+                this.body.setVelocityX(240)
             }
             else{
-                this.setVelocityX(160)
+                this.body.setVelocityX(160)
             }
         }
+        console.log('droite')
     }
 
     gauche(){
         this.regarde='aGauche';
         if(this.body.touchingDown == true){
-            if(this.choixPouvoir == 0){
-                this.setVelocityX(-240)
+            if(this.pouvoirChoisi == 0){
+                this.body.setVelocityX(-240)
             }
             else{
-                this.setVelocityX(-160)
+                this.body.setVelocityX(-160)
             }
         }
+        console.log('gauche')
     }
 
 
     saut(){
 
+    }
+    updatePerso(){
+        
+        if (this.body.touchingDown == true){
+            console.log('true')
+        }
+        else if (this.body.touchingDown == false) {
+            console.log('false')
+        }
+        else { console.log('undefined') } 
+        
+        //DEPLACEMENTS
+
+        if (this.keys.q.isDown == true){
+            this.gauche()
+        }
+
+        if (this.keys.d.isDown == true){
+            this.droite()
+        }
+
+        if (this.keys.z.isDown == true){
+            this.saut()
+        }
+
+        if (this.keys.space.isDown == true){
+          this.choixPouvoir()
+        }
+
+        this.timerPouvoir++
     }
 }

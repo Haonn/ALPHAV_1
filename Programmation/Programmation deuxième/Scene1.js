@@ -23,7 +23,7 @@ class Scene1 extends Phaser.Scene {
     {  
 
 
-        //this.add.image(960,540, 'background');
+        this.add.image(960,540, 'background');
 
         this.map = this.add.tilemap('map');
         this.tiles = this.map.addTilesetImage('TilsetTest');
@@ -40,12 +40,12 @@ class Scene1 extends Phaser.Scene {
 
          //(A mettre dans les colliders)
          this.physics.add.collider(player,this.collisionLayer);
-         cursors = this.input.keyboard.createCursorKeys();
+
     }
     
     update() 
     {
-
+      player.updatePerso()
     }
   }
   
