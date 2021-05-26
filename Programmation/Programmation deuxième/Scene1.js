@@ -45,7 +45,7 @@ class Scene1 extends Phaser.Scene {
     
     update() 
     {
-      player.updatePerso()
+      player.updatePerso(player.body.touchingDown)
     }
   }
   

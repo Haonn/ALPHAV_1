@@ -5,7 +5,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
 
-        this.timerPouvoir = 15;
+        this.timerPouvoir = 60;
         this.pouvoirChoisi = 0;
         this.vie = 3;
         this.regarde='aDroite';
@@ -28,19 +28,21 @@ class Perso extends Phaser.GameObjects.Sprite{
 
     choixPouvoir(){
 
-        if(this.pouvoirChoisi == 2 && this.timerPouvoir > 15){
+        if(this.pouvoirChoisi == 0 ){
+            this.pouvoirChoisi = 1;
+            console.log('passage du pouvoir de foudre à celui de feu')
+        }
+
+        else if(this.pouvoirChoisi == 1 ){
+            this.pouvoirChoisi = 2
+            console.log('passage du pouvoir de feu à celui de vent')
+        }
+
+        else if(this.pouvoirChoisi == 2 ){
             this.pouvoirChoisi = 0
             console.log('passage du pouvoir de vent à celui de foudre')
         }
 
-        if(this.pouvoirChoisi == 0 && this.timerPouvoir > 15){
-            this.pouvoirChoisi = 1;
-            console.log('passage du pouvoir de foudre à celui de feu')
-        }
-        else if(this.pouvoirChoisi == 1 && this.timerPouvoir > 15){
-            this.pouvoirChoisi = 2
-            console.log('passage du pouvoir de feu à celui de vent')
-        }
         
         console.log(this.pouvoirChoisi);
     }
@@ -100,12 +102,12 @@ class Perso extends Phaser.GameObjects.Sprite{
     saut(){
 
     }
-    updatePerso(){
+    updatePerso(toucheSol){
         
-        if (this.body.touchingDown == true){
+        if (toucheSol == true){
             console.log('true')
         }
-        else if (this.body.touchingDown == false) {
+        else if (toucheSol == false) {
             console.log('false')
         }
         else { console.log('undefined') } 
@@ -124,8 +126,9 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.saut()
         }
 
-        if (this.keys.space.isDown == true){
+        if (this.keys.space.isDown == true && this.timerPouvoir > 30){
           this.choixPouvoir()
+          this.timerPouvoir=0
         }
 
         this.timerPouvoir++
