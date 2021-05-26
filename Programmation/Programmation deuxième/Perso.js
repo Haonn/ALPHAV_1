@@ -10,8 +10,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         this.vies = 3;
         this.regarde='aDroite';
         this.direction == 'aucune';
-        
-        
+
         const { SPACE, Z, Q, D, S } = Phaser.Input.Keyboard.KeyCodes;
         this.keys = scene.input.keyboard.addKeys({
           
@@ -81,22 +80,23 @@ class Perso extends Phaser.GameObjects.Sprite{
 
     //FONCTIONS DE DEPLACEMENT
 
-    droite(){
+    droite(toucheSol){
         this.regarde='aDroite';
-        if(this.body.touchingDown == true){
+        if(toucheSol){
             if(this.pouvoirChoisi == 0){
                 this.body.setVelocityX(240)
             }
             else{
                 this.body.setVelocityX(160)
-            }
+                }
         }
+        else{this.body.setAccelerationX(100)}
         console.log('droite')
     }
 
-    gauche(){
+    gauche(toucheSol){
         this.regarde='aGauche';
-        if(this.body.touchingDown == true){
+        if(toucheSol){
             if(this.pouvoirChoisi == 0){
                 this.body.setVelocityX(-240)
             }
@@ -104,40 +104,45 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.body.setVelocityX(-160)
             }
         }
+        else{this.body.setAccelerationX(-100)}
         console.log('gauche')
     }
 
 
     saut(){
-
+        this.body.setVelocityY(-300);
     }
-    updatePerso(toucheSol){
-        
-        if (toucheSol == true){
-            console.log('true')
-        }
-        else if (toucheSol == false) {
-            console.log('false')
-        }
-        else { console.log('undefined') } 
+    updatePerso(){
+
+        const toucheSol = this.body.blocked.down;
+
+        console.log(toucheSol);
         
         //DEPLACEMENTS
-
-        if (this.keys.q.isDown == true){
-            this.gauche()
-        }
-
-        if (this.keys.d.isDown == true){
-            this.droite()
-        }
-
-        if (this.keys.z.isDown == true){
+        if (this.keys.z.isDown == true && toucheSol){
             this.saut()
         }
 
-        if (this.keys.space.isDown == true && this.timerPouvoir > 30){
+        else if (this.keys.q.isDown == true){
+            this.gauche(toucheSol)
+        }
+
+        else if (this.keys.d.isDown == true){
+            this.droite(toucheSol)
+        }
+
+        else if (this.keys.space.isDown == true && this.timerPouvoir > 30){
           this.choixPouvoir()
           this.timerPouvoir=0
+        }
+
+        else if(toucheSol){
+            this.body.setVelocityX(0);
+            this.body.setVelocityY(100);
+        }
+        if(toucheSol){
+            this.body.setAccelerationX(0);
+            this.body.setAccelerationY(0);
         }
 
         this.timerPouvoir++

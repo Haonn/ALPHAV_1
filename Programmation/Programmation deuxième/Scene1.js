@@ -5,7 +5,7 @@ class Scene1 extends Phaser.Scene {
   
     init(data)
     {
-    
+
     }
   
     preload()
@@ -45,7 +45,7 @@ class Scene1 extends Phaser.Scene {
     
     update() 
     {
-      player.updatePerso(player.body.touchingDown)
+      player.updatePerso()
     }
   }
   
