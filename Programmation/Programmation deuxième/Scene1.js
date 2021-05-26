@@ -16,7 +16,7 @@ class Scene1 extends Phaser.Scene {
 
         this.load.image('background','assets/experimentalBackground.png');
         this.load.spritesheet('dude', 'assets/perso_base.png', { frameWidth: 80, frameHeight:  110});
-        
+        this.load.image('thunderProjectileImage','assets/thunderProjectile.png')
     }
 
     create() 
