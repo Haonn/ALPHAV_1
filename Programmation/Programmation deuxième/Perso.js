@@ -22,7 +22,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         });
     }
 
-    //GESTION DES POUVOIRS:
+    ////////////////////////////////////////////////////////GESTION DES POUVOIRS////////////////////////////////////////////////////////
     // 0=foudre; 1=feu; 2 = vent;
 
     choixPouvoir(){
@@ -78,7 +78,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         this.body.setGravityY(0);
     }
 
-    //FONCTIONS DE DEPLACEMENT
+    //////////////////////////////////////////////////////////FONCTIONS DE DEPLACEMENT//////////////////////////////////////////////////////////
 
     droite(toucheSol){
         this.regarde='aDroite';
@@ -90,8 +90,8 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.body.setVelocityX(160)
                 }
         }
-        else{this.body.setAccelerationX(100)}
-        console.log('droite')
+        else if (this.pouvoirChoisi != 2){this.body.setAccelerationX(100)}
+        else if (this.pouvoirChoisi == 2){this.body.setAccelerationX(150)}
     }
 
     gauche(toucheSol){
@@ -104,21 +104,22 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.body.setVelocityX(-160)
             }
         }
-        else{this.body.setAccelerationX(-100)}
-        console.log('gauche')
+        else if (this.pouvoirChoisi != 2){this.body.setAccelerationX(-100)}
     }
 
 
     saut(){
         this.body.setVelocityY(-300);
     }
+
+    //////////////////////////////////////////////////////////UPDATE DU PERSONNAGE//////////////////////////////////////////////////////////   
     updatePerso(){
 
         const toucheSol = this.body.blocked.down;
 
         console.log(toucheSol);
         
-        //DEPLACEMENTS
+        //DEPLACEMENTS - UPDATE
         if (this.keys.z.isDown == true && toucheSol){
             this.saut()
         }
