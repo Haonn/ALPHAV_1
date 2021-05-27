@@ -1,23 +1,61 @@
-class LaserGroup extends Phaser.Physics.Arcade.Group
+class Projectiles extends Phaser.Physics.Arcade.Group
 {
 	constructor(scene) {
 		// Call the super constructor, passing in a world and a scene
 		super(scene.physics.world, scene);
  
-		// Initialize the group
-		this.createMultiple({
-			classType: Laser, // This is the class we create just below
-			frameQuantity: 30, // Create 30 instances in the pool
-			active: false,
-			visible: false,
-			key: 'laser'
-		})
+		this.bullet = this.physics.add.group({
+			defaultKey: 'thunderProjectile',
+			maxSize: 1000
+		});
 	}
- 
-}
- 
-class Laser extends Phaser.Physics.Arcade.Sprite {
-	constructor(scene, x, y) {
-		super(scene, x, y, 'laser');
+
+	shoot(pointer) {
+		if (player.thunderAbility == true)
+		{
+			var bullet = this.bullets.get(player.x, player.y);
+			if (bullet) {
+				bullet.setActive(true);
+				bullet.setVisible(true);
+	
+				//Calcul de coordonnées du vecteur entre les deux projectiles
+				dY = ( pointer.y - player.y);
+				dX = ( pointer.x - player.x);
+	
+				/*Coefficient entre dX et dY (a voir dans quel sens l'utiliser)
+				coeffDistance = (Math.abs(dY)/Math.abs(dX)) */
+	
+				/*Distance entre les deux points 
+				distance = (Math.abs(dY)+Math.abs(dX)); */
+	
+				//Distance à ajouter pour atteindre la constante vitesse.
+				dSpeed = (800/(Math.abs(dY)+Math.abs(dX))); 
+	
+				bullet.body.velocity.y = dY*dSpeed;
+				bullet.body.velocity.x = dX*dSpeed;
+	
+				
+	
+				/*if (facing == "left"){
+				bullet.body.velocity.x = -200
+				bullet.body.velocity.y = 0
+				}
+				if (facing == "right"){
+				bullet.body.velocity.x = 200
+				bullet.body.velocity.y = 0
+				}
+				if (facing == "up"){
+				bullet.body.velocity.x = 0
+				bullet.body.velocity.y = -200
+				}
+				if (facing == "down"){
+				bullet.body.velocity.x = 0
+				bullet.body.velocity.y = 200
+				}*/
+				
+			}
+		}
+		this.physics.add.collider(this.bullets, ennemi1,bulletsennemi1);
+		
 	}
 }

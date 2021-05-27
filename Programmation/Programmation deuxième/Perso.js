@@ -5,12 +5,14 @@ class Perso extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
 
+        this.scene = scene;
         this.timerPouvoir = 60;
         this.pouvoirChoisi = 0;
         this.vies = 3;
         this.regarde='aDroite';
-        this.direction == 'aucune';
-
+        this.direction = 'aucune';
+        this.thunderAbility = true;
+        
         const { SPACE, Z, Q, D, S } = Phaser.Input.Keyboard.KeyCodes;
         this.keys = scene.input.keyboard.addKeys({
           
@@ -112,12 +114,13 @@ class Perso extends Phaser.GameObjects.Sprite{
         this.body.setVelocityY(-300);
     }
 
+
     //////////////////////////////////////////////////////////UPDATE DU PERSONNAGE//////////////////////////////////////////////////////////   
     updatePerso(){
-
+        
+        //this.scene.input.on('pointerdown', () => Projectiles.shoot());
+        
         const toucheSol = this.body.blocked.down;
-
-        console.log(toucheSol);
         
         //DEPLACEMENTS - UPDATE
         if (this.keys.z.isDown == true && toucheSol){

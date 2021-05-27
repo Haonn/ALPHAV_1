@@ -8,6 +8,7 @@ class Scene1 extends Phaser.Scene {
 
     }
   
+    ////////////////////////////////////////////////////////PRELOAD////////////////////////////////////////////////////////
     preload()
     {
         this.load.image("TilsetTest", 'assets/Environnement/TilsetTest.png');
@@ -19,6 +20,7 @@ class Scene1 extends Phaser.Scene {
         this.load.image('thunderProjectileImage','assets/thunderProjectile.png')
     }
 
+    ////////////////////////////////////////////////////////CREATE////////////////////////////////////////////////////////
     create() 
     {  
 
@@ -30,9 +32,7 @@ class Scene1 extends Phaser.Scene {
 
         this.collisionLayer = this.map.createStaticLayer('collisionLayer', this.tiles, 0, 0)
         this.collisionLayer.setCollisionByExclusion(-1,true);
-
-       
-
+  
         player = new Perso(this,50,50,'dude');
 
         this.cameras.main.setSize(1920,1080);
@@ -43,6 +43,7 @@ class Scene1 extends Phaser.Scene {
 
     }
     
+    ////////////////////////////////////////////////////////UPDATE////////////////////////////////////////////////////////
     update() 
     {
       player.updatePerso()
