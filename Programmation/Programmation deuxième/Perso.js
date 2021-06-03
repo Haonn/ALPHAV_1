@@ -135,6 +135,7 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.droite(toucheSol)
         }
 
+
         else if (this.keys.space.isDown == true && this.timerPouvoir > 30){
           this.choixPouvoir()
           this.timerPouvoir=0
@@ -148,6 +149,10 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.body.setAccelerationX(0);
             this.body.setAccelerationY(0);
         }
+
+        this.input.on('pointerdown', pointer => {
+            Projectiles.shoot();
+        });
 
         this.timerPouvoir++
     }

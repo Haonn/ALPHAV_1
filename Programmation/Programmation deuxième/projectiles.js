@@ -36,19 +36,19 @@ class Projectiles extends Phaser.Physics.Arcade.Group
 	
 				
 	
-				/*if (facing == "left"){
+				/*if (player.direction == "left"){
 				bullet.body.velocity.x = -200
 				bullet.body.velocity.y = 0
 				}
-				if (facing == "right"){
+				if (player.direction == "right"){
 				bullet.body.velocity.x = 200
 				bullet.body.velocity.y = 0
 				}
-				if (facing == "up"){
+				if (player.direction == "up"){
 				bullet.body.velocity.x = 0
 				bullet.body.velocity.y = -200
 				}
-				if (facing == "down"){
+				if (player.direction == "down"){
 				bullet.body.velocity.x = 0
 				bullet.body.velocity.y = 200
 				}*/
