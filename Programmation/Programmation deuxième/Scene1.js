@@ -23,7 +23,7 @@ class Scene1 extends Phaser.Scene {
     ////////////////////////////////////////////////////////CREATE////////////////////////////////////////////////////////
     create() 
     {  
-
+      sceneActuelle = this;
 
         this.add.image(960,540, 'background');
 
@@ -34,6 +34,8 @@ class Scene1 extends Phaser.Scene {
         this.collisionLayer.setCollisionByExclusion(-1,true);
   
         player = new Perso(this,50,50,'dude');
+
+        this.projectileScene1 = new Projectiles(this);
 
         this.cameras.main.setSize(1920,1080);
         //this.cameras.main.startFollow(this.player,true,0,0);

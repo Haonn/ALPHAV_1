@@ -12,6 +12,8 @@ class Perso extends Phaser.GameObjects.Sprite{
         this.regarde='aDroite';
         this.direction = 'aucune';
         this.thunderAbility = true;
+        this.pointer = sceneActuelle.input.pointer;
+
         
         const { SPACE, Z, Q, D, S } = Phaser.Input.Keyboard.KeyCodes;
         this.keys = scene.input.keyboard.addKeys({
@@ -118,13 +120,14 @@ class Perso extends Phaser.GameObjects.Sprite{
     //////////////////////////////////////////////////////////UPDATE DU PERSONNAGE//////////////////////////////////////////////////////////   
     updatePerso(){
         
-        //this.scene.input.on('pointerdown', () => Projectiles.shoot());
+        sceneActuelle.input.on('pointerdown', () => sceneActuelle.projectileScene1.shoot(this.pointer));
         
         const toucheSol = this.body.blocked.down;
         
         //DEPLACEMENTS - UPDATE
         if (this.keys.z.isDown == true && toucheSol){
             this.saut()
+            console.log(this);
         }
 
         else if (this.keys.q.isDown == true){
@@ -150,9 +153,9 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.body.setAccelerationY(0);
         }
 
-        this.input.on('pointerdown', pointer => {
+        /*this.input.on('pointerdown', pointer => {
             Projectiles.shoot();
-        });
+        });*/
 
         this.timerPouvoir++
     }

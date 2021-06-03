@@ -4,7 +4,7 @@ class Projectiles extends Phaser.Physics.Arcade.Group
 		// Call the super constructor, passing in a world and a scene
 		super(scene.physics.world, scene);
  
-		this.bullet = this.physics.add.group({
+		this.bullets = sceneActuelle.physics.add.group({
 			defaultKey: 'thunderProjectile',
 			maxSize: 1000
 		});
