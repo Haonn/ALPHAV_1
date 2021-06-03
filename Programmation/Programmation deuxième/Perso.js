@@ -12,10 +12,11 @@ class Perso extends Phaser.GameObjects.Sprite{
         this.regarde='aDroite';
         this.direction = 'aucune';
         this.thunderAbility = true;
-        this.pointer = sceneActuelle.input.pointer;
+        this.pointer = sceneActuelle.input.Pointer;
 
         
         const { SPACE, Z, Q, D, S } = Phaser.Input.Keyboard.KeyCodes;
+        this.pointer = Phaser.Input.pointer;
         this.keys = scene.input.keyboard.addKeys({
           
           space: SPACE,
