@@ -12,6 +12,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         this.regarde='aDroite';
         this.direction = 'aucune';
         this.thunderAbility = true;
+        this.timerTir = 16
         //this.pointer = sceneActuelle.input.Pointer;
 
         
@@ -122,9 +123,11 @@ class Perso extends Phaser.GameObjects.Sprite{
     updatePerso(sceneActuelle){
         // console.log(pointer)
         //sceneActuelle.input.on('pointerdown', () => new TestProjectile(sceneActuelle, this.body.x, this.body.y, 'a', pointer));
+
         this.pointer = sceneActuelle.input.activePointer;
-        if (this.pointer.isDown) {
-            new TestProjectile(sceneActuelle, this.body.x, this.body.y, 'a', this.pointer);
+        if (this.pointer.isDown && this.timerTir > 25){
+            new TestProjectile(sceneActuelle, this.body.x + 40, this.body.y + 55, 'thunderProjectileImage', this.pointer);
+            this.timerTir = 0;
         }
         //this.input.on('pointerdown', shoot, this);
         
@@ -147,7 +150,7 @@ class Perso extends Phaser.GameObjects.Sprite{
 
         else if (this.keys.space.isDown == true && this.timerPouvoir > 30){
           this.choixPouvoir()
-          this.timerPouvoir=0
+            this.timerPouvoir = 0;
         }
 
         else if(toucheSol){
@@ -163,11 +166,12 @@ class Perso extends Phaser.GameObjects.Sprite{
             Projectiles.shoot();
         });*/
 
-        this.timerPouvoir++
+        this.timerPouvoir++;
+        this.timerTir++;
     }
 
     shootProjectile() {
-        new TestProjectile(sceneActuelle, this.body.x, this.body.y, 'thunderProjectileImage');
+        new TestProjectile(sceneActuelle,X, player.body.y, 'a');
         
     }
 }

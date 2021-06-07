@@ -1,12 +1,11 @@
 class TestProjectile extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y, texture, pointer) {
         super(scene, x, y, texture);
-
         scene.add.existing(this);
 		scene.physics.world.enableBody(this);
 		this.body.immovable = true;
-		this.shoot(pointer,scene);
-
+		this.shoot(pointer, scene);
+		this.body.setGravityY(-300);
     }
 
 

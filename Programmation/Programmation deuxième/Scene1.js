@@ -40,6 +40,7 @@ class Scene1 extends Phaser.Scene {
 
          //(A mettre dans les colliders)
         this.physics.add.collider(player, this.collisionLayer);
+        this.physics.add.collider(TestProjectile, this.collisionLayer);
         console.log(this)
         /*console.log(pointer)
         console.log(pointer.x)*/
