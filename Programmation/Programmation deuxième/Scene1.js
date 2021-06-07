@@ -23,8 +23,6 @@ class Scene1 extends Phaser.Scene {
     ////////////////////////////////////////////////////////CREATE////////////////////////////////////////////////////////
     create() 
     {  
-      sceneActuelle = this;
-
         this.add.image(960,540, 'background');
 
         this.map = this.add.tilemap('map');
@@ -41,14 +39,16 @@ class Scene1 extends Phaser.Scene {
         //this.cameras.main.startFollow(this.player,true,0,0);
 
          //(A mettre dans les colliders)
-         this.physics.add.collider(player,this.collisionLayer);
-
+        this.physics.add.collider(player, this.collisionLayer);
+        console.log(this)
+        /*console.log(pointer)
+        console.log(pointer.x)*/
     }
     
     ////////////////////////////////////////////////////////UPDATE////////////////////////////////////////////////////////
     update() 
     {
-      player.updatePerso()
+        player.updatePerso(this);
     }
   }
   

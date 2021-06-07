@@ -1,8 +1,8 @@
 class Projectiles extends Phaser.Physics.Arcade.Group
 {
-	constructor(scene) {
+	constructor(sceneActuelle) {
 		// Call the super constructor, passing in a world and a scene
-		super(scene.physics.world, scene);
+		super(sceneActuelle.physics.world, sceneActuelle);
  
 		this.bullets = sceneActuelle.physics.add.group({
 			defaultKey: 'thunderProjectile',
@@ -10,17 +10,17 @@ class Projectiles extends Phaser.Physics.Arcade.Group
 		});
 	}
 
-	shoot(pointer) {
+	shoot(scene, pointer) {
 		if (player.thunderAbility == true)
 		{
-			var bullet = this.bullets.get(player.x, player.y);
-			if (bullet) {
-				bullet.setActive(true);
-				bullet.setVisible(true);
+			this.bullet = this.bullets.get(player.x, player.y);
+			if (this.bullet) {
+				this.bullet.setActive(true);
+				this.bullet.setVisible(true);
 	
 				//Calcul de coordonnées du vecteur entre les deux projectiles
-				dY = ( pointer.y - player.y);
-				dX = ( pointer.x - player.x);
+				this.dY = ( pointer.y - player.y);
+				this.dX = ( pointer.x - player.x);
 	
 				/*Coefficient entre dX et dY (a voir dans quel sens l'utiliser)
 				coeffDistance = (Math.abs(dY)/Math.abs(dX)) */
@@ -29,10 +29,10 @@ class Projectiles extends Phaser.Physics.Arcade.Group
 				distance = (Math.abs(dY)+Math.abs(dX)); */
 	
 				//Distance à ajouter pour atteindre la constante vitesse.
-				dSpeed = (800/(Math.abs(dY)+Math.abs(dX))); 
+				this.dSpeed = (800/(Math.abs(this.dY)+Math.abs(this.dX))); 
 	
-				bullet.body.velocity.y = dY*dSpeed;
-				bullet.body.velocity.x = dX*dSpeed;
+				this.bullet.body.velocity.y = this.dY*this.dSpeed;
+				this.bullet.body.velocity.x = this.dX*this.dSpeed;
 	
 				
 	
@@ -55,7 +55,7 @@ class Projectiles extends Phaser.Physics.Arcade.Group
 				
 			}
 		}
-		this.physics.add.collider(this.bullets, ennemi1,bulletsennemi1);
+		//scene.physics.add.collider(this.bullets, ennemi1,bulletsennemi1);
 		
 	}
 }

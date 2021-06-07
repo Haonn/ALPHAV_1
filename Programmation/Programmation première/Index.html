@@ -249,9 +249,10 @@ function create ()//----------------------------------------
             maxSize: 1000,
             allowGravity: false,
         });
-        this.input.on('pointerdown', shoot, this);
+        this.input.on('pointerdown', shoot);
 }
-function shoot(pointer) {
+    function shoot(pointer) {
+        console.log(pointer)
     if (pouvoirchoisi == 1)
     {
         console.log(pointer.x, pointer.y);
