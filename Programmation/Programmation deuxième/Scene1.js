@@ -33,7 +33,7 @@ class Scene1 extends Phaser.Scene {
   
         player = new Perso(this,50,50,'dude');
 
-        this.projectileScene1 = new Projectiles(this);
+        //this.projectileScene1 = new Projectiles(this);
 
         this.cameras.main.setSize(1920,1080);
         //this.cameras.main.startFollow(this.player,true,0,0);

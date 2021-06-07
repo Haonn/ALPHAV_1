@@ -4,18 +4,21 @@ class TestProjectile extends Phaser.GameObjects.Sprite {
 
         scene.add.existing(this);
 		scene.physics.world.enableBody(this);
-		this.shoot(pointer);
+		this.body.immovable = true;
+		this.shoot(pointer,scene);
 
     }
 
 
-	shoot(pointer) {
+	shoot(pointer,scene) {
 		if (player.thunderAbility == true) {
 			if (this.body) {
 				//this.body.setActive(true);
 				//this.body.setVisible(true);
 
 				//Calcul de coordonnées du vecteur entre les deux projectiles
+
+				pointer.x += scene.cameras.main.scrollX
 				this.dY = (pointer.y - player.y);
 				this.dX = (pointer.x - player.x);
 

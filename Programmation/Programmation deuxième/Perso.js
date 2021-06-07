@@ -167,6 +167,7 @@ class Perso extends Phaser.GameObjects.Sprite{
     }
 
     shootProjectile() {
-        new TestProjectile(sceneActuelle, this.body.x, this.body.y, 'a');
+        new TestProjectile(sceneActuelle, this.body.x, this.body.y, 'thunderProjectileImage');
+        
     }
 }
