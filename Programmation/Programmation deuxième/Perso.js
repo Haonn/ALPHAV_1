@@ -45,6 +45,7 @@ class Perso extends Phaser.GameObjects.Sprite{
 
         else if(this.pouvoirChoisi == 2 ){
             this.pouvoirChoisi = 0
+            this.resetVent();
             console.log('passage du pouvoir de vent à celui de foudre')
         }
 
@@ -69,14 +70,6 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.resetVent();
             this.body.setGravityX(500);
         }
-    }
-
-    pouvoirFoudre(){
-
-    }
-
-    pouvoirFeu(){
-
     }
 
     resetVent(){
@@ -120,16 +113,53 @@ class Perso extends Phaser.GameObjects.Sprite{
 
 
     //////////////////////////////////////////////////////////UPDATE DU PERSONNAGE//////////////////////////////////////////////////////////   
-    updatePerso(sceneActuelle){
-        // console.log(pointer)
-        //sceneActuelle.input.on('pointerdown', () => new TestProjectile(sceneActuelle, this.body.x, this.body.y, 'a', pointer));
+    updatePerso(sceneActuelle, listeEnnemi, sol){
+
+
+        // Utilisation de la capacité active 
 
         this.pointer = sceneActuelle.input.activePointer;
-        if (this.pointer.isDown && this.timerTir > 25){
-            new TestProjectile(sceneActuelle, this.body.x + 40, this.body.y + 55, 'thunderProjectileImage', this.pointer);
-            this.timerTir = 0;
+
+        if (this.pointer.isDown && this.timerTir > 25) {
+            //Projectile de foudre 
+            if (this.pouvoirChoisi == 0) {
+                this.projectile = new TestProjectile(sceneActuelle, this.body.x + 40, this.body.y + 55, 'thunderProjectileImage', this.pointer);
+                sceneActuelle.physics.add.collider(this.pointer, sol);
+                for (let i = 0; i < listeEnnemi.length; i++) {
+                    sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
+                }
+                this.timerTir = 0;
+            }
+
+            //Projectile de feu 
+            if (this.pouvoirChoisi == 1) {
+                this.projectile = new TestProjectile(sceneActuelle, this.body.x + 40, this.body.y + 55, 'firebolt', this.pointer);
+                sceneActuelle.physics.add.collider(this.pointer, sol);
+                for (let i = 0; i < listeEnnemi.length; i++) {
+                    sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
+                }
+                this.timerTir = 0;
+            }
+
+            // Choisir la direction du vent avec la souris 
+            else if (this.pouvoirChoisi == 2) {
+                if (Math.abs(this.pointer.y) < Math.abs(this.pointer.x)) {
+                    if (this.pointer.y < this.body.x) {
+                        this.pouvoirVent('haut');
+                    }
+                    else {
+                        this.pouvoirVent('bas');
+                    }
+                }
+                else if (this.pointer.x < this.body.x) {
+                    this.pouvoirVent('gauche');
+                }
+                else {
+                    this.pouvoirVent('droite');
+                }
+            }
         }
-        //this.input.on('pointerdown', shoot, this);
+
         
         const toucheSol = this.body.blocked.down;
         
@@ -162,16 +192,11 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.body.setAccelerationY(0);
         }
 
-        /*this.input.on('pointerdown', pointer => {
-            Projectiles.shoot();
-        });*/
+        // Gestion des Timers 
+
 
         this.timerPouvoir++;
         this.timerTir++;
     }
 
-    shootProjectile() {
-        new TestProjectile(sceneActuelle,X, player.body.y, 'a');
-        
-    }
 }
