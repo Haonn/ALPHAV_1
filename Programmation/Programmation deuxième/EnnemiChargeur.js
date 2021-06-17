@@ -14,7 +14,7 @@ class EnnemiChargeur extends Phaser.GameObjects.Sprite {
     chargeDroite() {
         this.regarde = 'aDroite'
 
-        this.body.setAccelerationX(10000);
+        this.body.setAccelerationX(10000 + Phaser.Math.Between(1000, 5000));
         this.detectionZone = 1500;
 
     }
@@ -29,7 +29,7 @@ class EnnemiChargeur extends Phaser.GameObjects.Sprite {
     chargeGauche() {
         this.regarde = 'aGauche'
 
-        this.body.setAccelerationX(-10000);
+        this.body.setAccelerationX(-10000 + Phaser.Math.Between(1000, 5000));
         this.detectionZone = 1500;
     }
 
@@ -55,13 +55,13 @@ class EnnemiChargeur extends Phaser.GameObjects.Sprite {
         if (player.body.position.y > (this.body.position.y - this.detectionZone) && (player.body.position.y < (this.body.position.y + this.detectionZone))) {
             if (player.body.position.x < this.body.position.x && player.body.position.x > (this.body.position.x - 500)) {
                 this.gauche();
-                if (player.body.position.x < (this.body.position.x + 150) && player.body.position.x > (this.body.position.x - 150)) {
+                if (player.body.position.x < (this.body.position.x + 200) && player.body.position.x > (this.body.position.x - 200)) {
                     this.chargeGauche();
                 }
             }
             else if (player.body.position.x > (this.body.position.x - this.detectionZone) && this.body.position.x < (this.body.position.x + this.detectionZone)) {
                 this.droite();
-                if (player.body.position.x > (this.body.position.x - 150) && this.body.position.x < (this.body.position.x + 150)) {
+                if (player.body.position.x > (this.body.position.x - 200) && this.body.position.x < (this.body.position.x + 200)) {
                     this.chargeDroite();
                 }
 

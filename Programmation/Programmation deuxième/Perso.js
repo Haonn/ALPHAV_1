@@ -164,7 +164,14 @@ class Perso extends Phaser.GameObjects.Sprite{
         const toucheSol = this.body.blocked.down;
         
         //DEPLACEMENTS - UPDATE
-        if (this.keys.z.isDown == true && toucheSol){
+
+         if (this.keys.space.isDown == true && this.timerPouvoir > 30) {
+            this.choixPouvoir()
+            this.timerPouvoir = 0;
+        }
+
+
+        else if (this.keys.z.isDown == true && toucheSol){
             this.saut()
             console.log(this);
         }
@@ -177,11 +184,6 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.droite(toucheSol)
         }
 
-
-        else if (this.keys.space.isDown == true && this.timerPouvoir > 30){
-          this.choixPouvoir()
-            this.timerPouvoir = 0;
-        }
 
         else if(toucheSol){
             this.body.setVelocityX(0);

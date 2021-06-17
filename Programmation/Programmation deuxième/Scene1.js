@@ -45,7 +45,7 @@ class Scene1 extends Phaser.Scene {
 
         this.chargeur2 = new EnnemiChargeur(this, 900, 100, 'ennemiChargeur');
 
-        this.listeEnnemi = [this.chargeur1, this.chargeur2];
+        this.listeEnnemiScene1 = [this.chargeur1, this.chargeur2];
         //this.projectileScene1 = new Projectiles(this);
 
         this.cameras.main.setSize(1920,1080);
@@ -53,7 +53,7 @@ class Scene1 extends Phaser.Scene {
 
          //(A mettre dans les colliders)
         this.physics.add.collider(player, this.collisionLayer);
-        this.physics.add.collider(this.listeEnnemi, this.collisionLayer);
+        this.physics.add.collider(this.listeEnnemiScene1, this.collisionLayer);
         console.log(this)
         /*console.log(pointer)
         console.log(pointer.x)*/
@@ -62,7 +62,7 @@ class Scene1 extends Phaser.Scene {
     ////////////////////////////////////////////////////////UPDATE////////////////////////////////////////////////////////
     update() 
     {
-        player.updatePerso(this, this.listeEnnemi, this.collisionLayer);
+        player.updatePerso(this, this.listeEnnemiScene1, this.collisionLayer);
         this.chargeur1.updateEnnemiChargeur(this);
         this.chargeur2.updateEnnemiChargeur(this);
     }

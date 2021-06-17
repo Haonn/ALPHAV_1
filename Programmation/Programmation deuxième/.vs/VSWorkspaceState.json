@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\assets"
+    "\\assets",
+    "\\assets\\Environnement"
   ],
-  "SelectedNode": "\\EnnemiChargeur.js",
+  "SelectedNode": "\\assets\\Environnement\\tileset psd.psd",
   "PreviewInSolutionExplorer": false
 }
