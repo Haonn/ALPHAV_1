@@ -25,6 +25,10 @@ class EnnemiChargeur extends Phaser.GameObjects.Sprite {
         this.body.setAccelerationX(130)
 
     }
+    colliderProjectile(projectile, sceneActuelle) {
+        console.log("creationCollider")
+        sceneActuelle.physics.add.collider(projectile, this, this.mortEnnemi);
+    }
 
     chargeGauche() {
         this.regarde = 'aGauche'
@@ -44,9 +48,9 @@ class EnnemiChargeur extends Phaser.GameObjects.Sprite {
     }
 
     mortEnnemi() {
+        console.log("mortDeL'Ennemi")
         this.destroy();
     }
-
 
     //////////////////////////////////////////////////////////UPDATE DU PERSONNAGE//////////////////////////////////////////////////////////   
     updateEnnemiChargeur(sceneActuelle) {

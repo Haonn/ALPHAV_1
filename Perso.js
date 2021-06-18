@@ -27,6 +27,20 @@ class Perso extends Phaser.GameObjects.Sprite{
           d: D,
         });
     }
+     ////////////////////////////////////////////////////////GESTION DE LA VIE////////////////////////////////////////////////////////
+    prendDegat() {
+        this.vies = this.vies - 1
+        console.log(this.vies)
+        if (this.vies < 3) {
+            this.mortPlayer();
+        }
+    }
+
+    mortPlayer() {
+        this.body.position.x = 50;
+        this.body.position.y = 50;
+        this.vies = 3;
+    }
 
     ////////////////////////////////////////////////////////GESTION DES POUVOIRS////////////////////////////////////////////////////////
     // 0=foudre; 1=feu; 2 = vent;
@@ -127,6 +141,7 @@ class Perso extends Phaser.GameObjects.Sprite{
                 sceneActuelle.physics.add.collider(this.pointer, sol);
                 for (let i = 0; i < listeEnnemi.length; i++) {
                     sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
+                    listeEnnemi[i].colliderProjectile(this, sceneActuelle);
                 }
                 this.timerTir = 0;
             }
