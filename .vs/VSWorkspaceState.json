@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Programmation",
-    "\\Programmation\\Programmation deuxième",
-    "\\Programmation\\Programmation deuxième\\assets",
-    "\\Programmation\\Sauvegarde de particules_test"
+    "\\assets",
+    "\\assets\\Environnement"
   ],
-  "SelectedNode": "\\Programmation\\Programmation deuxième\\assets\\ennemi.png",
+  "SelectedNode": "\\TestProjectile.js",
   "PreviewInSolutionExplorer": false
 }
