@@ -16,7 +16,7 @@ class Scene1 extends Phaser.Scene {
 
         this.load.image('ennemiChargeur', 'assets/ennemiChargeur.png');
         this.load.image('background','assets/experimentalBackground.png');
-        this.load.spritesheet('dude', 'assets/perso_base.png', { frameWidth: 80, frameHeight:  110});
+        this.load.spritesheet('dude', 'assets/Perso_base.png', { frameWidth: 80, frameHeight:  110});
         this.load.image('thunderProjectileImage', 'assets/thunderProjectile.png')
         this.load.image('firebolt', 'assets/firebolt.png')
     }
