@@ -142,7 +142,7 @@ class Perso extends Phaser.GameObjects.Sprite{
                 for (let i = 0; i < listeEnnemi.length; i++) {
                     //sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
                     //listeEnnemi[i].colliderProjectile(this, sceneActuelle);
-                    sceneActuelle.physics.add.collider(listeEnnemi[i], this.projectile, listeEnnemi[i].mortEnnemi(this));
+                    sceneActuelle.physics.add.collider(listeEnnemi[i], this.projectile, listeEnnemi[i].mortEnnemi );
                 }
                 this.timerTir = 0;
             }

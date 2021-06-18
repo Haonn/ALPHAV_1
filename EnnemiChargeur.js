@@ -43,7 +43,7 @@ class EnnemiChargeur extends Phaser.GameObjects.Sprite {
         this.body.setAccelerationY(-300);
     }
 
-    mortEnnemi(ennemi, projectile) {
+    mortEnnemi(ennemi,projectile) {
         ennemi.destroy();
         projectile.destroy();
     }
