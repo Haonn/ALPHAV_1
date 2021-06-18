@@ -24,7 +24,4 @@ class TestProjectile extends Phaser.GameObjects.Sprite {
 		}
 	}
 
-	test() {
-		console.log("touché")
-    }
 }

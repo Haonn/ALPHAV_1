@@ -140,8 +140,9 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.projectile = new TestProjectile(sceneActuelle, this.body.x + 40, this.body.y + 55, 'thunderProjectileImage', this.pointer);
                 sceneActuelle.physics.add.collider(this.pointer, sol);
                 for (let i = 0; i < listeEnnemi.length; i++) {
-                    sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
-                    listeEnnemi[i].colliderProjectile(this, sceneActuelle);
+                    //sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
+                    //listeEnnemi[i].colliderProjectile(this, sceneActuelle);
+                    sceneActuelle.physics.add.collider(listeEnnemi[i], this.projectile, listeEnnemi[i].mortEnnemi(this));
                 }
                 this.timerTir = 0;
             }
@@ -151,7 +152,8 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.projectile = new TestProjectile(sceneActuelle, this.body.x + 40, this.body.y + 55, 'firebolt', this.pointer);
                 sceneActuelle.physics.add.collider(this.pointer, sol);
                 for (let i = 0; i < listeEnnemi.length; i++) {
-                    sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
+                    //sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
+                    sceneActuelle.physics.add.collider(listeEnnemi[i], this.projectile, listeEnnemi[i].mortEnnemi);
                 }
                 this.timerTir = 0;
             }
