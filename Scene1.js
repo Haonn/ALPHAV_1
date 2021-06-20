@@ -12,7 +12,7 @@ class Scene1 extends Phaser.Scene {
     preload()
     {
         this.load.image("TilsetTest", 'assets/Environnement/TilsetTest.png');
-        this.load.tilemapTiledJSON("map", 'assets/Environnement/Niveau1.json');
+        this.load.tilemapTiledJSON("map", 'assets/Environnement/lvl1.json');
         this.load.image('ennemiChargeur', 'assets/ennemiChargeur.png');
         this.load.image('background','assets/experimentalBackground.png');
         this.load.spritesheet('dude', 'assets/Perso_base.png', { frameWidth: 80, frameHeight:  110});
@@ -23,14 +23,15 @@ class Scene1 extends Phaser.Scene {
     ////////////////////////////////////////////////////////CREATE////////////////////////////////////////////////////////
     create() 
     {  
-        this.add.image(960,540, 'background');
+        this.add.image(960, 540, 'background');
+        this.add.image(2880, 540, 'background');
 
         // Tiled 
         this.map = this.add.tilemap('map');
-        /*this.tiles = this.map.addTilesetImage('TilsetTest','TilsetTest');
+        this.tiles = this.map.addTilesetImage('TilsetTest','TilsetTest');
 
         this.collisionLayer = this.map.createLayer('collisionLayer', this.tiles, 0, 0);
-        this.collisionLayer.setCollisionByExclusion(-1,true);*/
+        this.collisionLayer.setCollisionByExclusion(-1,true);
 
         // Player 
 
@@ -48,7 +49,7 @@ class Scene1 extends Phaser.Scene {
         //this.projectileScene1 = new Projectiles(this);
 
         this.cameras.main.setSize(1920, 1080);
-        this.cameras.main.setBounds(0, 0, 2000, 6000);
+        this.cameras.main.setBounds(0, 0, 5760, 1200);
 
 
          //(A mettre dans les colliders)

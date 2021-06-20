@@ -13,6 +13,7 @@ class TestProjectile extends Phaser.GameObjects.Sprite {
 		if (scene.player.thunderAbility == true) {
 			if (this.body) {
 				pointer.x += scene.cameras.main.scrollX
+				pointer.y += scene.cameras.main.scrollY
 				this.dY = (pointer.y - scene.player.y);
 				this.dX = (pointer.x - scene.player.x);
 

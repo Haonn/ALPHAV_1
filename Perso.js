@@ -103,8 +103,8 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.body.setVelocityX(160)
                 }
         }
-        else if (this.pouvoirChoisi != 2){this.body.setAccelerationX(100)}
-        else if (this.pouvoirChoisi == 2){this.body.setAccelerationX(150)}
+        else if (this.pouvoirChoisi != 2){this.body.setAccelerationX(150)}
+        else if (this.pouvoirChoisi == 2){this.body.setAccelerationX(200)}
     }
 
     gauche(toucheSol){
@@ -117,7 +117,8 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.body.setVelocityX(-160)
             }
         }
-        else if (this.pouvoirChoisi != 2){this.body.setAccelerationX(-100)}
+        else if (this.pouvoirChoisi != 2) { this.body.setAccelerationX(-150) }
+        else if (this.pouvoirChoisi == 2) { this.body.setAccelerationX(-200) }
     }
 
 
@@ -159,9 +160,13 @@ class Perso extends Phaser.GameObjects.Sprite{
             }
 
             // Choisir la direction du vent avec la souris 
+
             else if (this.pouvoirChoisi == 2) {
-                if (Math.abs(this.pointer.y) < Math.abs(this.pointer.x)) {
-                    if (this.pointer.y < this.body.x) {
+                this.pointer.x += sceneActuelle.cameras.main.scrollX;
+                this.pointer.y += sceneActuelle.cameras.main.scrollY;
+                console.log(Math.abs("y= ",this.body.y - this.pointer.y ,", x=" , Math.abs(this.pointer.x - this.body.x)));
+                if (Math.abs(this.body.y-this.pointer.y) > Math.abs(this.pointer.x-this.body.x)) {
+                    if (this.pointer.y < this.body.y) {
                         this.pouvoirVent('haut');
                     }
                     else {
