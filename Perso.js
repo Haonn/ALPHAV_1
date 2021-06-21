@@ -1,6 +1,6 @@
-class Perso extends Phaser.GameObjects.Sprite{
-    constructor(scene,x,y,texture){
-        super(scene,x,y,texture);
+class Perso extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, texture) {
+        super(scene, x, y, texture);
 
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
@@ -9,37 +9,39 @@ class Perso extends Phaser.GameObjects.Sprite{
         this.timerPouvoir = 60;
         this.pouvoirChoisi = 0;
         this.vies = 3;
-        this.regarde='aDroite';
+        this.regarde = 'aDroite';
         this.direction = 'aucune';
         this.thunderAbility = true;
         this.timerTir = 16
-        //this.pointer = sceneActuelle.input.Pointer;
 
-        
-        const { SPACE, Z, Q, D, S } = Phaser.Input.Keyboard.KeyCodes;
+
+        const { SPACE, Z, Q, D, S, K, O, M, L } = Phaser.Input.Keyboard.KeyCodes;
         this.pointer = Phaser.Input.pointer;
         this.keys = scene.input.keyboard.addKeys({
-          
-          space: SPACE,
-          z: Z,
-          q: Q,
-          s: S,
-          d: D,
+
+            space: SPACE,
+            z: Z,
+            q: Q,
+            s: S,
+            d: D,
+            k: K,
+            o: O,
+            m: M,
+            l: L,
         });
     }
-     ////////////////////////////////////////////////////////GESTION DE LA VIE////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////GESTION DE LA VIE////////////////////////////////////////////////////////
     prendDegat() {
-        this.vies = this.vies - 1
-        console.log(this.vies)
-        if (this.vies < 3) {
-            this.mortPlayer();
+        if (this.invulnerabilite > 100) {
+            this.vies -= 1;
+            if (this.vies < 1) {
+                this.mortPlayer();
+            }
         }
     }
 
     mortPlayer() {
-        this.body.position.x = 50;
-        this.body.position.y = 50;
-        this.vies = 3;
+        this.estMort = true;
     }
 
     ////////////////////////////////////////////////////////GESTION DES POUVOIRS////////////////////////////////////////////////////////
@@ -128,14 +130,19 @@ class Perso extends Phaser.GameObjects.Sprite{
 
 
     //////////////////////////////////////////////////////////UPDATE DU PERSONNAGE//////////////////////////////////////////////////////////   
-    updatePerso(sceneActuelle, listeEnnemi, sol){
+    updatePerso(sceneActuelle, listeEnnemi, sol) {
+        if (this.estMort == true) {
+            sceneActuelle.relanceScene();
+        }
 
 
+        
         // Utilisation de la capacité active 
 
         this.pointer = sceneActuelle.input.activePointer;
 
         if (this.pointer.isDown && this.timerTir > 25) {
+            console.log(this.body.x, this.body.y)
             //Projectile de foudre 
             if (this.pouvoirChoisi == 0) {
                 this.projectile = new TestProjectile(sceneActuelle, this.body.x + 40, this.body.y + 55, 'thunderProjectileImage', this.pointer);
@@ -143,7 +150,7 @@ class Perso extends Phaser.GameObjects.Sprite{
                 for (let i = 0; i < listeEnnemi.length; i++) {
                     //sceneActuelle.physics.add.collider(this.projectile, listeEnnemi[i], this.projectile.test);
                     //listeEnnemi[i].colliderProjectile(this, sceneActuelle);
-                    sceneActuelle.physics.add.collider(listeEnnemi[i], this.projectile, listeEnnemi[i].mortEnnemi );
+                    sceneActuelle.physics.add.collider(listeEnnemi[i], this.projectile, listeEnnemi[i].mortEnnemi);
                 }
                 this.timerTir = 0;
             }
@@ -160,27 +167,52 @@ class Perso extends Phaser.GameObjects.Sprite{
             }
 
             // Choisir la direction du vent avec la souris 
-
             else if (this.pouvoirChoisi == 2) {
-                this.pointer.x += sceneActuelle.cameras.main.scrollX;
-                this.pointer.y += sceneActuelle.cameras.main.scrollY;
-                console.log(Math.abs("y= ",this.body.y - this.pointer.y ,", x=" , Math.abs(this.pointer.x - this.body.x)));
-                if (Math.abs(this.body.y-this.pointer.y) > Math.abs(this.pointer.x-this.body.x)) {
+
+
+                /*if ((this.pointer.x) < this.body.x) {
+                    this.pouvoirVent('gauche');
+                }
+                else if ((this.pointer.x) > (this.body.x)) {
+                    this.pouvoirVent('droite');
+                }
+                 if ((this.pointer.y-this.body.y) > (this.pointer.x-this.body.x)) {
                     if (this.pointer.y < this.body.y) {
                         this.pouvoirVent('haut');
                     }
                     else {
                         this.pouvoirVent('bas');
                     }
-                }
-                else if (this.pointer.x < this.body.x) {
-                    this.pouvoirVent('gauche');
-                }
-                else {
-                    this.pouvoirVent('droite');
-                }
+                }*/
+                /*this.resetVent();
+                console.log(sceneActuelle.cameras.main.scrollX)
+                this.pointer.x -= sceneActuelle.cameras.main.scrollX;
+                this.pointer.y -= sceneActuelle.cameras.main.scrollY;
+                this.dY = (this.pointer.y - (this.body.y - sceneActuelle.cameras.main.scrollY));
+                this.dX = (this.pointer.x - (this.body.x - sceneActuelle.cameras.main.scrollX));
+
+                this.dSpeed = (250 / (Math.abs(this.dY) + Math.abs(this.dX)));
+
+                this.body.setGravityY(this.dY * this.dSpeed);
+                this.body.setGravityX(this.dX * this.dSpeed);*/
+
             }
         }
+
+        if (this.pouvoirChoisi == 2) {
+        if (this.keys.o.isDown) {
+            this.pouvoirVent("haut");
+        }
+        if (this.keys.m.isDown) {
+            this.pouvoirVent("droite");
+        }
+        if (this.keys.k.isDown) {
+            this.pouvoirVent("gauche");
+        }
+        if (this.keys.l.isDown) {
+            this.pouvoirVent("bas");
+        }
+    }
 
         
         const toucheSol = this.body.blocked.down;
@@ -218,7 +250,7 @@ class Perso extends Phaser.GameObjects.Sprite{
 
         // Gestion des Timers 
 
-
+        this.invulnerabilite++;
         this.timerPouvoir++;
         this.timerTir++;
     }
